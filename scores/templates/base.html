@@ -61,6 +61,13 @@
 	<main role="main" class="container">
 	  <div class="row">
 	    <div class="col-md-8">
+	    	{% if messages %}
+				{% for message in messages %}
+					<div class="alert alert-{{ message.tags }}">
+						{{ message }}
+					</div>
+				{% endfor %}
+			{% endif %}
 	      {% block content %}{% endblock %}
 	    </div>
 	    <div class="col-md-4">
@@ -77,6 +84,17 @@
 	      </div>
 	    </div>
 	  </div>
+	  <!-- Footer -->
+<footer style="position: fixed; bottom: 0; background-color: blue;" class="page-footer font-small blue">
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">ZONE FOOT
+    <a href="/">© 2022 QUEEN LOVE</a>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
 	</main>
 
 	<!-- Optional JavaScript -->
