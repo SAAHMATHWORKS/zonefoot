@@ -1,0 +1,58 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+<main>
+    <h2>Liste des sanctions</h2>
+
+    <form class="input-group my-4">
+        <input type="text"
+               id="search-input"
+               name="search" 
+               class="form-control" 
+               placeholder="Enter team" />
+
+        <span class="input-group-text border-0 bg-transparent" 
+              id="search-addon" 
+              style="cursor: pointer;">
+            <i class="fa fa-search"></i>
+        </span>
+    </form>
+
+
+<div class="container">
+    <table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col"># Joueurs</th>
+      <th scope="col">Equipe</th>
+      <th scope="col">Match</th>
+      <th scope="col">Carton</th>
+      <th scope="col">Payé</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for c in cartons %}
+  
+    <tr>
+      <td><span style="color: blue;">{{ forloop.counter }} ></span> {{ c.player.name }}</td>
+      <td>{{ c.player.team }}</td>
+      <td>{{ c.match }}</td>
+      <td>
+          {% if c.type_carton == 'JAUNE' %}
+          <span class="badge badge-warning">J</span>
+          {% else %}
+          <span class="badge badge-danger">R</span>
+          {% endif %}
+      </td>
+      <td>{{ c.paye }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+
+
+
+
+</main>
+{% endblock %}

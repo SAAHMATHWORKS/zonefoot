@@ -1,0 +1,143 @@
+{% extends 'base.html' %} 
+{% load static %}
+
+
+{% block content %}
+<main>
+
+
+    <div id="fixturelist-container"> 
+    <div class="fixture row">
+        <div class="home col-6 text-right p-0">
+            <span class="font-weight-bold">{{ fixture.home_team }}</span>
+            <span class="border px-2 py-1 bg-warning">{{ fixture.home_goals }}</span>
+            <br>
+            <div>
+                <br>
+
+                <ul style="list-style: none;">
+                    {% for b in home_team_buts %}
+                    <li>
+                        <span class="font-weight-bold">{{ b.player.name }}</span>
+                        <span class="badge badge-secondary">{{ b.minute }}'</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+
+            </div>
+
+            <br>
+
+            <div>
+                <ul style="list-style: none;">
+                    {% for c in home_team_cartons %}
+                    <li>
+                        <span class="font-weight-bold">{{ c.player.name }}</span>
+                        {% if c.type_carton == 'JAUNE' %}
+                        <span class="badge badge-warning">J</span>
+                        {% else %}
+                        <span class="badge badge-danger">R</span>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+
+            </div>
+        </div>
+        
+        <div class="away col-6 text-left p-0">
+            <span class="border px-2 py-1 bg-warning">{{ fixture.away_goals }}</span>
+            <span class="font-weight-bold">{{ fixture.away_team }}</span>
+
+            <br>
+            <div>
+                <br>
+                <ul style="list-style: none;">
+                    {% for b in away_team_buts %}
+                    <li>
+                        <span class="font-weight-bold">{{ b.player.name }}</span>
+                        <span class="badge badge-secondary">{{ b.minute }}'</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div>
+                <ul style="list-style: none;">
+                    {% for c in away_team_cartons %}
+                    <li>
+                        <span class="font-weight-bold">{{ c.player.name }}</span>
+                        {% if c.type_carton == 'JAUNE' %}
+                        <span class="badge badge-warning">J</span>
+                        {% else %}
+                        <span class="badge badge-danger">R</span>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+    <div class="col-sm-12">
+        <form action="{% url 'addMessage' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label>Laisser un message</label>
+                <input type="text" name="comment" placeholder="Entrer votre message" class="form-control" required>
+                <input type="hidden" name="fixtureid" value="{{fixture.id}}">
+            </div>
+            <button type="submit" class="btn btn-primary">Envoyer</button>
+        </form>
+        <br>
+        <div>
+            {% for comment in comments %}
+            <div class="row mt-10">
+                <div class="col-md-12">
+                    <b>{{comment.user.username}}</b> <span class="badge badge-secondary">{{comment.created_at}}</span>
+                    <div>{{ comment.text }}</div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    
+
+    </div>
+    </div> 
+    </div>
+
+    <br>
+    <br>
+    <nav aria-label="...">
+  {% if comments.has_other_pages %}
+  <ul class="pagination">
+    {% if comments.has_previous %}
+    <li class="page-item">
+      <a class="page-link" href="?page={{ comments.previous_page_number }}" tabindex="-1">Previous</a>
+    </li>
+    {% else %}
+    <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in comments.paginator.page_range %}
+    {% if comments.number == i %}
+    <li class="page-item active">
+      <a class="page-link" href="#">{{ i }} <span class="sr-only">(current)</span></a>
+    </li>
+    {% else %}
+    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+    {% endif %}
+    {% endfor %}
+    {% if comments.has_next %}
+    <li class="page-item">
+      <a class="page-link" href="?page={{ comments.next_page_number }}">Next</a>
+    </li>
+    {% else %}
+      <li class="page-link"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+  {% endif %}
+</nav>
+
+</main>
+{% endblock %}

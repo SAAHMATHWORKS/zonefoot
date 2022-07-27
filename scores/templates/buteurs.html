@@ -1,0 +1,48 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+<main>
+    <h2>Classement de meilleurs buteurs</h2>
+
+    <form class="input-group my-4">
+        <input type="text"
+               id="search-input"
+               name="search" 
+               class="form-control" 
+               placeholder="Enter team" />
+
+        <span class="input-group-text border-0 bg-transparent" 
+              id="search-addon" 
+              style="cursor: pointer;">
+            <i class="fa fa-search"></i>
+        </span>
+    </form>
+
+
+<div class="container">
+    <table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col"># Joueurs</th>
+      <th scope="col">Equipe</th>
+      <th scope="col">Total but(s)</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for b in buteurs %}
+  
+    <tr>
+      <td><span style="color: blue;">{{ forloop.counter }} ></span> {{ b.name }}</td>
+      <td>{{ b.team.name }}</td>
+      <td>{{ b.totalbut }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+
+
+
+
+</main>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="content-section">
+    <div class="container">
+    <div class="media">
+        <img class="rounded-circle account-img" src="{{ user.profile.image.url }}" alt="">
+        <div class="media-body">
+            <h2 class="account-heading">{{ user.username }}</h2>
+            <p class="text-secondary">{{ user.email }}</p>
+            <div class="border-top pt-1">
+                <small class="text-muted">
+                    <a class="ml-2" href="{% url 'logout' %}">Deconnectez Vous si vous n'êtes pas {{ user.username }}</a>
+                </small>
+            </div> 
+        </div>
+    </div>
+    </div>
+    <div>
+        Bonjour {{ user.username }}. N'hésitez pas à nous dire comment vous trouvez le championnat sur les <a href="{% url 'index' %}">forums de discussion</a>.
+    </div>
+
+</div>
+
+
+{% endblock content %}

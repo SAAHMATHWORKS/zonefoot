@@ -1,0 +1,50 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+<main>
+    <h2>{{ fixtures.first.tournament.name }} Scores & Fixtures</h2>
+
+    <form class="input-group my-4">
+        <input type="text"
+               id="search-input"
+               name="search" 
+               class="form-control" 
+               placeholder="Enter team" />
+
+        <span class="input-group-text border-0 bg-transparent" 
+              id="search-addon" 
+              style="cursor: pointer;">
+            <i class="fa fa-search" aria-hidden="true"></i>
+        </span>
+    </form>
+
+    <div id="fixturelist-container">
+    <div id="fixture-list">
+    {% for fixture in fixtures %}
+    <div class="fixture row">
+        <div class="home col-6 text-right p-0">
+            <span class="font-weight-bold queen">{{ fixture.home_team }}</span>
+            <span class="border px-2 py-1 bg-warning">{{ fixture.home_goals }}</span>
+        </div>
+        
+        <div class="away col-6 text-left p-0">
+            <span class="border px-2 py-1 bg-warning">{{ fixture.away_goals }}</span>
+            <span class="font-weight-bold queen">{{ fixture.away_team }}</span>
+        </div>
+    </div>
+    {% if fixture.game_finished %}
+        <div class="text-center mt-1 text-success">
+            <a href="{% url 'fixture_detail' fixture.id %}"><span class="badge badge-primary ml-2">{{fixture.date}}</span></a>
+        </div>
+        {% else %}
+        <div class="text-center mt-1 text-success">
+            <a href="{% url 'fixture_detail' fixture.id %}"><span class="badge badge-secondary ml-2">{{fixture.date}}</span></a>
+        </div>
+    {% endif %}
+    <hr/>
+    {% endfor %}
+    </div>
+    </div>
+</main>
+
+{% endblock %}

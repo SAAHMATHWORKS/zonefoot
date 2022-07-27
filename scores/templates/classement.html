@@ -1,0 +1,85 @@
+{% extends 'base2.html' %} 
+
+{% block content %}
+<main>
+    <h2>{{ fixtures.first.tournament.name }} Classement ({{nb_matchs}} joués/66) </h2>
+<!--
+    <form class="input-group my-4">
+        <input type="text"
+               id="search-input"
+               name="search" 
+               class="form-control" 
+               placeholder="Enter team" />
+
+        <span class="input-group-text border-0 bg-transparent" 
+              id="search-addon" 
+              style="cursor: pointer;">
+            <i class="bi bi-search"></i>
+        </span>
+    </form>
+-->
+
+<div class="container">
+    <table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col"># Club</th>
+      <th scope="col">MJ</th>
+      <th scope="col">G</th>
+      <th scope="col">N</th>
+      <th scope="col">P</th>
+      <th scope="col">BP</th>
+      <th scope="col">BC</th>
+      <th scope="col">DB</th>
+      <th scope="col">Pts</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for t in teams %}
+    {% if forloop.counter < 5 %}
+    <tr>
+      <td><span style="color: blue;">{{ forloop.counter }} ></span> {{ t.name }}</td>
+      <td>{{ t.mj }}</td>
+      <td>{{ t.gagne }}</td>
+      <td>{{ t.nul }}</td>
+      <td>{{ t.perdu }}</td>
+      <td>{{ t.bp }}</td>
+      <td>{{ t.bc }}</td>
+      <td>{{ t.db }}</td>
+      <td>{{ t.points }}</td>
+    </tr>
+    {% elif forloop.counter > 10 %}
+    <tr>
+      <td><span style="color: red;">{{ forloop.counter }} ></span> {{ t.name }}</td>
+      <td>{{ t.mj }}</td>
+      <td>{{ t.gagne }}</td>
+      <td>{{ t.nul }}</td>
+      <td>{{ t.perdu }}</td>
+      <td>{{ t.bp }}</td>
+      <td>{{ t.bc }}</td>
+      <td>{{ t.db }}</td>
+      <td>{{ t.points }}</td>
+    </tr>
+    {% else %}
+    <tr>
+      <td><span>{{ forloop.counter }} ></span> {{ t.name }}</td>
+      <td>{{ t.mj }}</td>
+      <td>{{ t.gagne }}</td>
+      <td>{{ t.nul }}</td>
+      <td>{{ t.perdu }}</td>
+      <td>{{ t.bp }}</td>
+      <td>{{ t.bc }}</td>
+      <td>{{ t.db }}</td>
+      <td>{{ t.points }}</td>
+    </tr>
+    {% endif %}
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+
+
+
+
+</main>
+{% endblock %}
