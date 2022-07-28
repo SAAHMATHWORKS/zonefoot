@@ -1,5 +1,28 @@
 {% extends 'base.html' %} 
 
 {% block content %}
+<div class="container">
+	<h2>{{ fixtures.first.tournament.name }} Calendrier des rencontres. </h2>
+    <table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col"># Date</th>
+      <th scope="col">Match</th>
+      <th scope="col">Stade</th>
+      <th scope="col">Statut</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for t in fixtures %}
+    <tr>
+      <td>{{ t.date }}</td>
+      <td>{{ t.home_team }} vs {{ t.away_team }}</td>
+      <td>Manioc</td>
+      <td>{% if t.game_finished == True%} Joué {% else %} Non Joué {% endif %}</td>
+    </tr>
+    {% endfor %}
 
+  </tbody>
+</table>
+</div>
 {% endblock %}

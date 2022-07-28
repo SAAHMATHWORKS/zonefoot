@@ -12,11 +12,14 @@ from django.contrib.admin.views.decorators import staff_member_required
 
 # Create your views here.
 def index(request):
-    return render(request, 'index.html', {})
+    fixtures = Fixture.objects.all().order_by('-date')
+
+    context = {"fixtures": fixtures}
+    return render(request, 'index.html', context)
 
 
 def fixtures(request):
-    fixtures = Fixture.objects.all()
+    fixtures = Fixture.objects.all().order_by('-date')
 
     #all_completed = all(f.game_finished for f in fixtures)
 
