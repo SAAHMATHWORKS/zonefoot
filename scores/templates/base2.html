@@ -48,9 +48,10 @@
 				<a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
 				<a class="nav-item nav-link" href="{% url 'inscription' %}">Register</a>
 			  {% endif %}
-			  
+			  {% if user.is_staff %}
 			  <a class="nav-item nav-link" href="/admin/" target="_blank">
 				  <i class="fa fa-user-circle" aria-hidden="true"></i></a>
+				{% endif %}
 			
 	        </div>
 	      </div>
