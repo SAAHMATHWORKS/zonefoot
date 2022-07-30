@@ -4,47 +4,81 @@
 <main>
     <h2>{{ fixtures.first.tournament.name }} Scores & Fixtures</h2>
 
-    <form class="input-group my-4">
+    <div class="input-group my-4">
         <input type="text"
-               id="search-input"
-               name="search" 
+               id="search-input", onkeyup="myFunction()", 
                class="form-control" 
                placeholder="Enter team" />
 
-        <span class="input-group-text border-0 bg-transparent" 
-              id="search-addon" 
+        <span class="input-group-text border-0 bg-transparent"  
               style="cursor: pointer;">
             <i class="fa fa-search" aria-hidden="true"></i>
         </span>
-    </form>
+    </div>
 
     <div id="fixturelist-container">
-    <div id="fixture-list">
-    {% for fixture in fixtures %}
-    <div class="fixture row">
-        <div class="home col-6 text-right p-0">
-            <span class="font-weight-bold queen">{{ fixture.home_team }}</span>
-            <span class="border px-2 py-1 bg-warning">{{ fixture.home_goals }}</span>
+        <div id="fixture-list">
+        {% for fixture in fixtures %}
+            <div class="prof">
+                <div class="fixture row">
+                    <div class="home col-6 text-right p-0">
+                        <span class="font-weight-bold queen">{{ fixture.home_team }}</span>
+                        <span class="border px-2 py-1 bg-warning">{{ fixture.home_goals }}</span>
+                    </div>
+                    
+                    <div class="away col-6 text-left p-0">
+                        <span class="border px-2 py-1 bg-warning">{{ fixture.away_goals }}</span>
+                        <span class="font-weight-bold queen">{{ fixture.away_team }}</span>
+                    </div>
+                </div>
+                {% if fixture.game_finished %}
+                    <div class="text-center mt-1 text-success">
+                        <a href="{% url 'fixture_detail' fixture.id %}"><span class="badge badge-primary ml-2">{{fixture.date}}</span></a>
+                    </div>
+                    {% else %}
+                    <div class="text-center mt-1 text-success">
+                        <a href="{% url 'fixture_detail' fixture.id %}"><span class="badge badge-secondary ml-2">{{fixture.date}}</span></a>
+                    </div>
+                {% endif %}
+                <hr/>
+            </div>
+        {% endfor %}
         </div>
-        
-        <div class="away col-6 text-left p-0">
-            <span class="border px-2 py-1 bg-warning">{{ fixture.away_goals }}</span>
-            <span class="font-weight-bold queen">{{ fixture.away_team }}</span>
-        </div>
-    </div>
-    {% if fixture.game_finished %}
-        <div class="text-center mt-1 text-success">
-            <a href="{% url 'fixture_detail' fixture.id %}"><span class="badge badge-primary ml-2">{{fixture.date}}</span></a>
-        </div>
-        {% else %}
-        <div class="text-center mt-1 text-success">
-            <a href="{% url 'fixture_detail' fixture.id %}"><span class="badge badge-secondary ml-2">{{fixture.date}}</span></a>
-        </div>
-    {% endif %}
-    <hr/>
-    {% endfor %}
-    </div>
     </div>
 </main>
+
+<script>
+function myFunction() {
+  // Declare variables
+  var input, filter, rencontres, home_team_name, away_team_name, home_team_name_span, away_team_name_span,
+         home_team_value, away_team_value, i, txtValue;
+  input = document.getElementById('search-input');
+  filter = input.value.toUpperCase();
+  rencontres = document.getElementsByClassName("prof");
+
+  // Loop through all list items, and hide those who don't match the search query
+  for (i = 0; i < rencontres.length; i++) {
+    console.log(i);
+    home_team_name = rencontres[i].getElementsByClassName("fixture")[0].getElementsByClassName("home")[0];
+    away_team_name = rencontres[i].getElementsByClassName("fixture")[0].getElementsByClassName("away")[0];
+
+    home_team_name_span = home_team_name.getElementsByTagName("span")[0]
+
+    away_team_name_span = away_team_name.getElementsByTagName("span")[1]
+
+    home_team_value = home_team_name_span.textContent || home_team_name_span.innerText;
+    away_team_value = away_team_name_span.textContent || away_team_name_span.innerText;
+    console.log(home_team_value);
+    console.log(away_team_value);
+    if ((home_team_value.indexOf(filter) > -1) || (away_team_value.indexOf(filter) > -1))  {
+        console.log("on entre et on trouve");
+      rencontres[i].style.display = "";
+    } else {
+        console.log("on entre et on ne trouve pas");
+      rencontres[i].style.display = "none";
+    }
+  }
+}
+</script>
 
 {% endblock %}
