@@ -4,19 +4,17 @@
 <main>
     <h2>Liste des sanctions</h2>
 
-    <form class="input-group my-4">
+    <div class="input-group my-4">
         <input type="text"
-               id="search-input"
-               name="search" 
+               id="search-input", onkeyup="myFunction()", 
                class="form-control" 
                placeholder="Enter team" />
 
-        <span class="input-group-text border-0 bg-transparent" 
-              id="search-addon" 
+        <span class="input-group-text border-0 bg-transparent"  
               style="cursor: pointer;">
-            <i class="fa fa-search"></i>
+            <i class="fa fa-search" aria-hidden="true"></i>
         </span>
-    </form>
+    </div>
 
 
 <div class="container">
@@ -33,7 +31,7 @@
   <tbody>
     {% for c in cartons %}
   
-    <tr>
+    <tr class="professeur">
       <td><span style="color: blue;">{{ forloop.counter }} ></span> {{ c.player.name }}</td>
       <td>{{ c.player.team }}</td>
       <td>{{ c.match }}</td>
@@ -55,4 +53,31 @@
 
 
 </main>
+
+<script>
+function myFunction() {
+  // Declare variables
+  var input, filter, rencontres, data, player, match, team, paye, i;
+  input = document.getElementById('search-input');
+  filter = input.value.toUpperCase();
+  rencontres = document.getElementsByClassName("professeur");
+
+  // Loop through all list items, and hide those who don't match the search query
+  for (i = 0; i < rencontres.length; i++) {
+    data = rencontres[i].getElementsByTagName("td");
+    player = data[0].textContent || data[0].innerText;
+    team = data[1].textContent || data[1].innerText;
+
+    match = data[2].textContent || data[2].innerText;
+
+    paye = data[4].textContent || data[4].innerText;
+
+    if ((player.toUpperCase().indexOf(filter) > -1) || (team.toUpperCase().indexOf(filter) > -1) || (match.toUpperCase().indexOf(filter) > -1) || (paye.toUpperCase().indexOf(filter) > -1))  {
+      rencontres[i].style.display = "";
+    } else {
+      rencontres[i].style.display = "none";
+    }
+  }
+}
+</script>
 {% endblock %}

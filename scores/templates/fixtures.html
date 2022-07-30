@@ -4,6 +4,7 @@
 <main>
     <h2>{{ fixtures.first.tournament.name }} Scores & Fixtures</h2>
 
+
     <div class="input-group my-4">
         <input type="text"
                id="search-input", onkeyup="myFunction()", 
@@ -70,7 +71,7 @@ function myFunction() {
     away_team_value = away_team_name_span.textContent || away_team_name_span.innerText;
     console.log(home_team_value);
     console.log(away_team_value);
-    if ((home_team_value.indexOf(filter) > -1) || (away_team_value.indexOf(filter) > -1))  {
+    if ((home_team_value.toUpperCase().indexOf(filter) > -1) || (away_team_value.toUpperCase().indexOf(filter) > -1))  {
         console.log("on entre et on trouve");
       rencontres[i].style.display = "";
     } else {

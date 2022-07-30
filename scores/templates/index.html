@@ -3,10 +3,22 @@
 {% block content %}
 <div class="container">
 	<h2>{{ fixtures.first.tournament.name }} Calendrier des rencontres. </h2>
+	<div class="input-group my-4">
+        <input type="text"
+               id="search-input", onkeyup="myFunction()", 
+               class="form-control" 
+               placeholder="Enter team" />
+
+        <span class="input-group-text border-0 bg-transparent"  
+              style="cursor: pointer;">
+            <i class="fa fa-search" aria-hidden="true"></i>
+        </span>
+    </div>
     <table class="table table-striped">
   <thead>
     <tr>
       <th scope="col"># Date</th>
+      <th>Heure</th>
       <th scope="col">Match</th>
       <th scope="col">Stade</th>
       <th scope="col">Statut</th>
@@ -14,15 +26,44 @@
   </thead>
   <tbody>
     {% for t in fixtures %}
-    <tr>
-      <td>{{ t.date }}</td>
+    <tr class="professeur">
+      <td>{{ t.date|date:"l d/m/y" }}</td>
+      <td>{{ t.date|time:"H:i" }}</td>
       <td>{{ t.home_team }} vs {{ t.away_team }}</td>
       <td>Manioc</td>
-      <td>{% if t.game_finished == True%} Joué {% else %} Non Joué {% endif %}</td>
+      {% if t.game_finished == True %}
+      <td style="color: blue;"> DEJA JOUE</td>
+      {% else %}
+      <td style="color: red;">NON JOUE</td>
+      {% endif %}
     </tr>
     {% endfor %}
 
   </tbody>
+  
 </table>
 </div>
+<script>
+function myFunction() {
+  // Declare variables
+  var input, filter, rencontres, data, date, match, statut, i;
+  input = document.getElementById('search-input');
+  filter = input.value.toUpperCase();
+  rencontres = document.getElementsByClassName("professeur");
+
+  // Loop through all list items, and hide those who don't match the search query
+  for (i = 0; i < rencontres.length; i++) {
+    data = rencontres[i].getElementsByTagName("td");
+    date = data[0].textContent || data[0].innerText;
+    match = data[2].textContent || data[2].innerText;
+    statut = data[4].textContent || data[4].innerText;
+
+    if ((date.toUpperCase().indexOf(filter) > -1) || (match.toUpperCase().indexOf(filter) > -1)|| (statut.toUpperCase().indexOf(filter) > -1))  {
+      rencontres[i].style.display = "";
+    } else {
+      rencontres[i].style.display = "none";
+    }
+  }
+}
+</script>
 {% endblock %}
