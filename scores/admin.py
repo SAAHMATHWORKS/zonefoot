@@ -12,5 +12,7 @@ admin.site.register(Carton)
 admin.site.register(Comment)
 admin.site.register(But)
 
+admin.site.register(Info)
+
 
 

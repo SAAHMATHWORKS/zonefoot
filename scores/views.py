@@ -7,6 +7,7 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 #from django.contrib.auth.forms import UserCreationForm
 from django.contrib.admin.views.decorators import staff_member_required
+from .forms import *
 
 
 
@@ -100,3 +101,23 @@ def cards(request):
     context = {'cartons': cartons}
     return render(request, 'cartons.html', context)
 
+
+
+
+@login_required
+def goalscorers(request):
+    context = {}
+    if request.method == "POST":
+        form = ButForm(request.POST)
+        if form.is_valid():
+            scorer = form.cleaned_data['player']
+            minute = form.cleaned_data['minute']
+            form.instance.author = request.user
+            form.save()
+            messages.info(request, f'But à la {minute}ème minute de {scorer.name}!!!')
+            return redirect('goalscorers')
+    else:
+        form = ButForm()
+
+    context['form'] = form
+    return render(request, 'goalscorersadd.html', context) 

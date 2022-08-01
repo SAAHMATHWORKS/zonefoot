@@ -136,7 +136,7 @@ class Player(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.name
+        return self.name + "(" + self.team.name + ")"
 
     @property
     def totalbut(self):
@@ -184,3 +184,16 @@ class Carton(models.Model):
 
     def __str__(self):
         return self.player.name + " carton: " + self.type_carton
+
+
+
+
+
+class Info(models.Model):
+    info = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+
+    def __str__(self):
+        return self.info

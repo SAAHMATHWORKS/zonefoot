@@ -9,4 +9,5 @@ urlpatterns = [
     path('buteurs/', views.clsbuteurs, name='clsbuteurs'),
     path('cartons/', views.cards, name='cards'),
     path('addMessage/', views.addMessage, name='addMessage'),
+    path('addgoalscorers/', views.goalscorers, name='goalscorers'),
 ]
