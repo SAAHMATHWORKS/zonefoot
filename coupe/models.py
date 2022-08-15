@@ -174,7 +174,7 @@ class TeamB(models.Model):
     	lost_home = 0
 
     	for m in self.baway_games.filter(game_finished=True):
-    		if m.baway_goals < m.bhome_goals:
+    		if m.away_goals < m.home_goals:
     			lost_away +=1
     	for m in self.bhome_games.filter(game_finished=True):
     		if m.home_goals < m.away_goals:
