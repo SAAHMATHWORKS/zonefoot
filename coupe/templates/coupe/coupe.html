@@ -1,0 +1,260 @@
+{% extends 'base2.html' %} 
+
+{% block content %}
+<main>
+    <h2>Coupe</h2>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Poule A</h2>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                          <th scope="col"># Club</th>
+                          <th scope="col">MJ</th>
+                          <th scope="col">DB</th>
+                          <th scope="col">Pts</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for t in teamsA %}
+                        {% if forloop.counter < 3 %}
+                        <tr>
+                          <td class="font-weight-bold"><span style="color: blue;">{{ forloop.counter }} ></span> {{ t.name }}</td>
+                          <td>{{ t.mj }}</td>
+                          <td>{{ t.db }}</td>
+                          <td class="font-weight-bold">{{ t.points }}</td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                          <td class="font-weight-bold"><span>{{ forloop.counter }} ></span> {{ t.name }}</td>
+                          <td>{{ t.mj }}</td>
+                          <td>{{ t.db }}</td>
+                          <td class="font-weight-bold">{{ t.points }}</td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+                <br>
+                
+                <div id="fixturelist-container">
+                    <div id="fixture-list">
+                    {% for fixture in matchA %}
+                        <div class="prof">
+                            <div class="fixture row">
+                                <div class="home col-6 text-right p-0">
+                                    <span class="font-weight-bold queen">{{ fixture.home_team }}</span>
+                                    <span class="border px-2 py-1 bg-warning">{{ fixture.home_goals }}</span>
+                                </div>
+                                
+                                <div class="away col-6 text-left p-0">
+                                    <span class="border px-2 py-1 bg-warning">{{ fixture.away_goals }}</span>
+                                    <span class="font-weight-bold queen">{{ fixture.away_team }}</span>
+                                </div>
+                            </div>
+                            {% if fixture.game_finished %}
+                                <div class="text-center mt-1 text-success">
+                                    <a href="#"><span class="badge badge-primary ml-2">{{fixture.date}}</span></a>
+                                </div>
+                                {% else %}
+                                <div class="text-center mt-1 text-success">
+                                    <a href="#"><span class="badge badge-secondary ml-2">{{fixture.date}}</span></a>
+                                </div>
+                            {% endif %}
+                            <hr/>
+                        </div>
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <h2>Poule B</h2>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                          <th scope="col"># Club</th>
+                          <th scope="col">MJ</th>
+                          <th scope="col">DB</th>
+                          <th scope="col">Pts</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for t in teamsB %}
+                        {% if forloop.counter < 3 %}
+                        <tr>
+                          <td class="font-weight-bold"><span style="color: blue;">{{ forloop.counter }} ></span> {{ t.name }}</td>
+                          <td>{{ t.mj }}</td>
+                          <td>{{ t.db }}</td>
+                          <td class="font-weight-bold">{{ t.points }}</td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                          <td class="font-weight-bold"><span>{{ forloop.counter }} ></span> {{ t.name }}</td>
+                          <td>{{ t.mj }}</td>
+                          <td>{{ t.db }}</td>
+                          <td class="font-weight-bold">{{ t.points }}</td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+                <br>
+
+                <div id="fixturelist-container">
+                    <div id="fixture-list">
+                    {% for fixture in matchB %}
+                        <div class="prof">
+                            <div class="fixture row">
+                                <div class="home col-6 text-right p-0">
+                                    <span class="font-weight-bold queen">{{ fixture.home_team }}</span>
+                                    <span class="border px-2 py-1 bg-warning">{{ fixture.home_goals }}</span>
+                                </div>
+                                
+                                <div class="away col-6 text-left p-0">
+                                    <span class="border px-2 py-1 bg-warning">{{ fixture.away_goals }}</span>
+                                    <span class="font-weight-bold queen">{{ fixture.away_team }}</span>
+                                </div>
+                            </div>
+                            {% if fixture.game_finished %}
+                                <div class="text-center mt-1 text-success">
+                                    <a href="#"><span class="badge badge-primary ml-2">{{fixture.date}}</span></a>
+                                </div>
+                                {% else %}
+                                <div class="text-center mt-1 text-success">
+                                    <a href="#"><span class="badge badge-secondary ml-2">{{fixture.date}}</span></a>
+                                </div>
+                            {% endif %}
+                            <hr/>
+                        </div>
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <br>
+
+    <div id="fixturelist-container">
+        <div id="fixture-list">
+            <h2>Les demi-finales</h2>
+            <br>
+        {% if demifinalprogram == True %}
+        {% for fixture in df %}
+            <div class="prof">
+                <div class="fixture row">
+                    <div class="home col-6 text-right p-0">
+                        <span class="font-weight-bold queen">{{ fixture.home_team }}</span>
+                        <span class="border px-2 py-1 bg-success">{{ fixture.home_goals }}</span>
+                    </div>
+                    
+                    <div class="away col-6 text-left p-0">
+                        <span class="border px-2 py-1 bg-success">{{ fixture.away_goals }}</span>
+                        <span class="font-weight-bold queen">{{ fixture.away_team }}</span>
+                    </div>
+                </div>
+                {% if fixture.game_finished %}
+                    <div class="text-center mt-1 text-success">
+                        <a href="#"><span class="badge badge-primary ml-2">{{fixture.date}}</span></a>
+                    </div>
+                    {% else %}
+                    <div class="text-center mt-1 text-success">
+                        <a href="#"><span class="badge badge-secondary ml-2">{{fixture.date}}</span></a>
+                    </div>
+                {% endif %}
+                <hr/>
+            </div>
+        {% endfor %}
+        {% else %}
+        <div class="prof">
+            <div class="fixture row">
+                <div class="home col-6 text-right p-0">
+                    <span class="font-weight-bold queen">1er PouleA</span>
+                    <span class="border px-2 py-1 bg-success" style="color: white;">-</span>
+                </div>
+                
+                <div class="away col-6 text-left p-0">
+                    <span class="border px-2 py-1 bg-success" style="color: white;">-</span>
+                    <span class="font-weight-bold queen">2nd PouleB</span>
+                </div>
+            </div>
+            <div class="text-center mt-1 text-success">
+                <a href="#"><span class="badge badge-secondary ml-2">A venir</span></a>
+            </div>
+
+            <hr/>
+        </div>
+
+        <div class="prof">
+            <div class="fixture row">
+                <div class="home col-6 text-right p-0">
+                    <span class="font-weight-bold queen">2nd PouleA</span>
+                    <span class="border px-2 py-1 bg-success" style="color: white;">-</span>
+                </div>
+                
+                <div class="away col-6 text-left p-0">
+                    <span class="border px-2 py-1 bg-success" style="color: white;">-</span>
+                    <span class="font-weight-bold queen">1er PouleB</span>
+                </div>
+            </div>
+            <div class="text-center mt-1 text-success">
+                <a href="#"><span class="badge badge-secondary ml-2">A venir</span></a>
+            </div>
+
+            <hr/>
+        </div>
+
+        {% endif %}
+        </div>
+    </div>
+
+    <br>
+    <br>
+    <div id="fixturelist-container">
+        <div id="fixture-list">
+            <h2>La finale</h2>
+            <br>
+        
+            <div class="prof">
+                <div class="fixture row">
+                    <div class="home col-6 text-right p-0">
+                        <span class="font-weight-bold queen">Winner1</span>
+                        <span class="border px-2 py-1 bg-danger" style="color: white;">-</span>
+                    </div>
+                    
+                    <div class="away col-6 text-left p-0">
+                        <span class="border px-2 py-1 bg-danger" style="color: white;">-</span>
+                        <span class="font-weight-bold queen">Winner2</span>
+                    </div>
+                </div>
+                <div class="text-center mt-1 text-success">
+                    <a href="#"><span class="badge badge-secondary ml-2">A venir</span></a>
+                </div>
+
+                <hr/>
+            </div>
+       
+        </div>
+    </div>
+
+
+    
+
+    
+</main>
+
+<script>
+
+</script>
+
+{% endblock %}

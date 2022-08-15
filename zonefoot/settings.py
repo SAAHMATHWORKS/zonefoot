@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'account',
     'scores',
+    'coupe',
     'crispy_forms',
 ]
 
@@ -102,6 +103,7 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+
 
 
 
