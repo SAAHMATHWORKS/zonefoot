@@ -84,7 +84,7 @@ WSGI_APPLICATION = 'zonefoot.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-'''
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -103,6 +103,7 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+'''
 
 
 
